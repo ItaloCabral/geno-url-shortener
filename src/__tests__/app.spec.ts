@@ -1,7 +1,7 @@
 import { it, expect, describe } from 'vitest'
 import supertest from 'supertest'
 
-import App from './app'
+import App from '../app'
 
 const app = App
 
