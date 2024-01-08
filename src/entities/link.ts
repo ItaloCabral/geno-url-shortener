@@ -1,5 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
+/**
+ * TODO: Implement expiration date for links
+ * TODO: Implement custom endpoint for links
+ * TODO: Implement custom alias for links
+ * TODO: Implement disable link
+ */
+
 type LinkAttributes = {
     id?: string;
     url: string;

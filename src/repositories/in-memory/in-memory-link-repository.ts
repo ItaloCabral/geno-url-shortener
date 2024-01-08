@@ -30,4 +30,8 @@ export class InMemoryLinkRepository implements LinkRepository {
             return keys.every(key => item[key] === queryObject[key]);
         });
     }
+
+    async list(): Promise<Link[]> {
+        return this.collection;
+    }
 }
