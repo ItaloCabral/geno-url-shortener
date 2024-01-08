@@ -1,9 +1,12 @@
+import { v4 as uuid } from 'uuid';
+
 type LinkAttributes = {
-    id: string;
+    id?: string;
     url: string;
     endpoint: string;
+    userId: string;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt?: Date;
 }
 
 export class Link {
@@ -11,6 +14,23 @@ export class Link {
     private attrs: LinkAttributes
 
     constructor(attrs: LinkAttributes) {
+
+        const { url, endpoint, userId } = attrs;
+
+        attrs.id = uuid();
+
+        if (!url) {
+            throw new Error('missing url');
+        }
+
+        if (!endpoint) {
+            throw new Error('missing endpoint');
+        }
+
+        if (!userId) {
+            throw new Error('missing userId');
+        }
+
         this.attrs = attrs;
     }
 
@@ -20,6 +40,10 @@ export class Link {
 
     get endpoint() {
         return this.attrs.endpoint;
+    }
+
+    get userId() {
+        return this.attrs.userId;
     }
 
     get createdAt() {

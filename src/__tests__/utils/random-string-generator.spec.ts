@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { randomString } from './random-string-generate';
+import { randomString } from '../../utils/random-string-generate';
 
 test('create a random string', () => {
 
