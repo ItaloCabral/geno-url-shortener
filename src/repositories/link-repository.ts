@@ -4,5 +4,6 @@ export interface LinkRepository {
     create(link: Link): Promise<void>;
     update(link: Link): Promise<void>;
     find(queryObject: Partial<Link>): Promise<Link | undefined>;
-    list(): Promise<Link[]>;
+    delete(id: string): Promise<boolean> | null;
+    list(userId: string): Promise<Link[]>;
 }

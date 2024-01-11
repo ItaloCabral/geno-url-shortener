@@ -26,12 +26,23 @@ export class InMemoryLinkRepository implements LinkRepository {
     async find(queryObject: Partial<Link>): Promise<Link | undefined> {
         return this.collection.find(item => {
             const keys = Object.keys(queryObject);
-
-            return keys.every(key => item[key] === queryObject[key]);
+            // @ts-ignore
+            return keys.every(key => queryObject[key] === item[key]);
         });
     }
 
-    async list(): Promise<Link[]> {
-        return this.collection;
+    async delete(id: string): Promise<boolean> {
+
+        if (!id) return false;
+
+        const index = this.collection.findIndex(item => item.id === id);
+
+        this.collection.splice(index, 1);
+
+        return true;
+    }
+
+    async list(userId: string): Promise<Link[]> {
+        return this.collection.filter(item => item.userId === userId);
     }
 }

@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GenerateShortLink } from '../../use-cases/generate-short-link';
-import { Link } from '../../entities/link';
-import { InMemoryLinkRepository } from '../../repositories/in-memory/in-memory-link-repository';
+import { InMemoryLinkRepository } from '../../repositories/implementations/in-memory-link-repository';
 
 describe('generate short link use case', async () => {
 
@@ -22,7 +21,9 @@ describe('generate short link use case', async () => {
         expect(generateShortLink.execute({
             userId: 'random-user-id',
             url: 'https://www.google.com'
-        })).resolves.toBeInstanceOf(Link);
+        })).resolves.toEqual({
+            endpoint: expect.any(String)
+        });
     });
 
     it('should throw an error if link already exists', async () => {
