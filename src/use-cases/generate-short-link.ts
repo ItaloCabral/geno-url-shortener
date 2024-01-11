@@ -1,13 +1,14 @@
 import { LinkRepository } from 'src/repositories/link-repository';
 import { Link } from '../entities/link';
-import { randomString } from '../utils/random-string-generate';
 
 type GenerateShortLinkRequest = {
     userId: string;
     url: string;
 }
 
-type GenerateShortLinkResponse = Link;
+type GenerateShortLinkResponse = {
+    endpoint: string;
+};
 
 export class GenerateShortLink {
 
@@ -19,7 +20,6 @@ export class GenerateShortLink {
     async execute({ userId, url }: GenerateShortLinkRequest): Promise<GenerateShortLinkResponse> {
         const link = new Link({
             url,
-            endpoint: randomString(12),
             userId,
             createdAt: new Date(),
             updatedAt: new Date()
@@ -31,7 +31,9 @@ export class GenerateShortLink {
 
         await this.linkRepository.create(link);
 
-        return link;
+        return {
+            endpoint: <string>link.endpoint
+        };
     }
 
 }

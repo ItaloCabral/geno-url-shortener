@@ -1,9 +1,10 @@
-import { v4 as uuid } from 'uuid';
+import { randomUUID } from "node:crypto";
+import {randomString} from "../utils/random-string-generate";
 
 type LinkAttributes = {
     id?: string;
     url: string;
-    endpoint: string;
+    endpoint?: string;
     userId: string;
     createdAt: Date;
     updatedAt?: Date;
@@ -15,23 +16,19 @@ export class Link {
 
     constructor(attrs: LinkAttributes) {
 
-        const { url, endpoint, userId } = attrs;
+        if (!attrs.url) throw new Error('missing url');
 
-        attrs.id = uuid();
+        if (!attrs.userId) throw new Error('missing userId');
 
-        if (!url) {
-            throw new Error('missing url');
-        }
+        this.attrs = {
+            ...attrs,
+            id: randomUUID(),
+            endpoint: randomString(12)
+        };
+    }
 
-        if (!endpoint) {
-            throw new Error('missing endpoint');
-        }
-
-        if (!userId) {
-            throw new Error('missing userId');
-        }
-
-        this.attrs = attrs;
+    get id() {
+        return this.attrs.id;
     }
 
     get url() {
