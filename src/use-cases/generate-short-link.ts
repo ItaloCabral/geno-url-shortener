@@ -16,6 +16,9 @@ export class GenerateShortLink {
         private readonly linkRepository: LinkRepository
     ) { }
 
+    /**
+     * TODO: Implement expiration date for links
+     */
 
     async execute({ userId, url }: GenerateShortLinkRequest): Promise<GenerateShortLinkResponse> {
         const link = new Link({

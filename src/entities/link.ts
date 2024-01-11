@@ -1,6 +1,13 @@
 import { randomUUID } from "node:crypto";
 import {randomString} from "../utils/random-string-generate";
 
+/**
+ * TODO: Implement expiration date for links
+ * TODO: Implement custom endpoint for links
+ * TODO: Implement custom alias for links
+ * TODO: Implement disable link
+ */
+
 type LinkAttributes = {
     id?: string;
     url: string;
