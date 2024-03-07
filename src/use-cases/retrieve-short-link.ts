@@ -1,3 +1,4 @@
+import { Link } from "src/entities/link";
 import { LinkRepository } from "src/repositories/link-repository";
 
 type RetrieveShortLinkRequest = {
@@ -9,11 +10,11 @@ export class RetrieveShortLink {
         private readonly linkRepository: LinkRepository
     ) { }
     
-    async execute({ endpoint }: RetrieveShortLinkRequest): Promise<string | undefined> {
+    async execute({ endpoint }: RetrieveShortLinkRequest): Promise<string> {
         const link = await this.linkRepository.find({ endpoint });
-        
+
         if(!link) throw new Error('Link not found');
 
-        return link.url;
+        return link.url ?? '';
     }
 }

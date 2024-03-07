@@ -2,7 +2,7 @@ import { LinkRepository } from 'src/repositories/link-repository';
 import { Link } from '../entities/link';
 
 type GenerateShortLinkRequest = {
-    userId: string;
+    userId?: string | null;
     url: string;
 }
 
@@ -23,14 +23,12 @@ export class GenerateShortLink {
     async execute({ userId, url }: GenerateShortLinkRequest): Promise<GenerateShortLinkResponse> {
         const link = new Link({
             url,
-            userId,
-            createdAt: new Date(),
-            updatedAt: new Date()
+            userId: userId ?? undefined
         });
-
+        
         const linkAlreadyExists = await this.linkRepository.find({ url: link.url });
-
-        if(linkAlreadyExists) throw new Error('Link already exists');
+        
+        if(!!linkAlreadyExists) throw new Error('Link already exists');
 
         await this.linkRepository.create(link);
 
