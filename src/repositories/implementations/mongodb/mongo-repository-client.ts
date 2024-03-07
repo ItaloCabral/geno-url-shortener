@@ -21,7 +21,7 @@ export class MongoRepositoryClient {
     this.client = null
   }
 
-  async getCollection(name: string): Promise<Collection<Link>> {
+  async getCollection(name: string): Promise<Collection<Partial<Link>>> {
     if(!this.client) throw new Error('MongoClient is not connected');
 
     return this.client.db().collection(name)
