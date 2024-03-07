@@ -1,4 +1,3 @@
-import { Link } from "src/entities/link";
 import { LinkRepository } from "src/repositories/link-repository";
 
 type RetrieveShortLinkRequest = {

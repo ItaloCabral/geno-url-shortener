@@ -21,14 +21,19 @@ export class GenerateShortLink {
      */
 
     async execute({ userId, url }: GenerateShortLinkRequest): Promise<GenerateShortLinkResponse> {
+        
+        const linkAlreadyExists = await this.linkRepository.find({ url, userId: userId ?? undefined});
+        
+        if(!!linkAlreadyExists
+           || (userId && await this.linkRepository.find({ url, userId }))
+        ) return {
+            endpoint: <string>linkAlreadyExists?.endpoint
+        }
+
         const link = new Link({
             url,
             userId: userId ?? undefined
         });
-        
-        const linkAlreadyExists = await this.linkRepository.find({ url: link.url });
-        
-        if(!!linkAlreadyExists) throw new Error('Link already exists');
 
         await this.linkRepository.create(link);
 
