@@ -12,8 +12,8 @@ type LinkAttributes = {
     id?: string;
     url: string;
     endpoint?: string;
-    userId: string;
-    createdAt: Date;
+    userId?: string;
+    createdAt?: Date;
     updatedAt?: Date;
 }
 
@@ -25,13 +25,17 @@ export class Link {
 
         if (!attrs.url) throw new Error('missing url');
 
-        if (!attrs.userId) throw new Error('missing userId');
-
         this.attrs = {
             ...attrs,
             id: randomUUID(),
-            endpoint: randomString(12)
+            endpoint: randomString(12),
+            createdAt: new Date(),
+            updatedAt: new Date()
         };
+    }
+    
+    public getAttributes() {
+        return { ...this.attrs };
     }
 
     get id() {
