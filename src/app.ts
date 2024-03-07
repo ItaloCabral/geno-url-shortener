@@ -1,10 +1,11 @@
 import express from 'express';
 import { LinksController } from './controllers/LinksController';
 import { linkRoutes } from './routes/LinkRoutes';
+import { env } from './env';
 
 const app = express();
 
-const PORT = process.env.PORT || 8000
+const PORT = env.PORT || 8000
 
 app.use(express.json());
 
