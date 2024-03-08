@@ -11,7 +11,7 @@ import {randomString} from "../utils/random-string-generate";
 type LinkAttributes = {
     id?: string;
     url: string;
-    endpoint?: string;
+    endpoint: string;
     userId?: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -28,7 +28,6 @@ export class Link {
         this.attrs = {
             ...attrs,
             id: randomUUID(),
-            endpoint: randomString(12),
             createdAt: new Date(),
             updatedAt: new Date()
         };

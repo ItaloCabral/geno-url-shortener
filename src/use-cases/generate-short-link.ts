@@ -1,5 +1,6 @@
 import { LinkRepository } from 'src/repositories/link-repository';
 import { Link } from '../entities/link';
+import { randomString } from '../utils/random-string-generate';
 
 type GenerateShortLinkRequest = {
     userId?: string | null;
@@ -30,7 +31,12 @@ export class GenerateShortLink {
             endpoint: <string>linkAlreadyExists?.endpoint
         }
 
+        const endpoint = await this.getEndpoint(12);
+
+        console.log('endpoint', endpoint);
+
         const link = new Link({
+            endpoint,
             url,
             userId: userId ?? undefined
         });
@@ -42,4 +48,11 @@ export class GenerateShortLink {
         };
     }
 
+    private async getEndpoint(initialLength: number): Promise<string> {
+        let endpoint = randomString(initialLength);
+
+        if (!!(await this.linkRepository.find({ endpoint }))) return randomString(initialLength + 1);
+
+        return endpoint;
+    }
 }
