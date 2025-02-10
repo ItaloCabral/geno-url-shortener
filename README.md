@@ -3,6 +3,8 @@
 
 Geno URL Shortener is a simple URL shortening service built with Node.js, Express, and MongoDB. It allows users to create short links for long URLs and redirect to the original URLs using the short links.
 
+You can test teh functionality [right here](https://geno-ti.com.br)
+
 ## Table of Contents
 
 - [Geno URL Shortener](#geno-url-shortener)
