@@ -9,6 +9,7 @@ type GenerateShortLinkRequest = {
 
 type GenerateShortLinkResponse = {
     endpoint: string;
+    url: string;
 };
 
 export class GenerateShortLink {
@@ -28,6 +29,7 @@ export class GenerateShortLink {
         if(!!linkAlreadyExists
            || (userId && await this.linkRepository.find({ url, userId }))
         ) return {
+            url: <string>linkAlreadyExists?.url,
             endpoint: <string>linkAlreadyExists?.endpoint
         }
 
@@ -44,6 +46,7 @@ export class GenerateShortLink {
         await this.linkRepository.create(link);
 
         return {
+            url: <string>link.url,
             endpoint: <string>link.endpoint
         };
     }
