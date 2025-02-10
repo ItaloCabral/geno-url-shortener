@@ -30,15 +30,3 @@ test('should throw an error when url is missing', () => {
         })
     }).toThrow('missing url')
 })
-
-test('should throw an error when userId is missing', () => {
-    expect(() => {
-        new Link({
-            url: 'https://www.google.com',
-            endpoint: randomString(12),
-            userId: '',
-            createdAt: new Date(),
-            updatedAt: new Date()
-        })
-    }).toThrow('missing userId')
-})

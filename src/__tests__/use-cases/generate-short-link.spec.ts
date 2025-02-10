@@ -22,22 +22,25 @@ describe('generate short link use case', async () => {
             userId: 'random-user-id',
             url: 'https://www.google.com'
         })).resolves.toEqual({
+            url: 'https://www.google.com',
             endpoint: expect.any(String)
         });
     });
 
-    it('should throw an error if link already exists', async () => {
+    it('should return existent link if already exists', async () => {
         const { generateShortLink } = makeSut();
 
-        await generateShortLink.execute({
+        const original = await generateShortLink.execute({
             userId: 'random-user-id',
             url: 'https://www.google.com'
         });
 
-        expect(generateShortLink.execute({
+        const duplicated = await generateShortLink.execute({
             userId: 'random-user-id',
             url: 'https://www.google.com'
-        })).rejects.toThrowError('Link already exists');
+        })
+
+        expect(duplicated.endpoint).toBe(original.endpoint);
     });
 
 })

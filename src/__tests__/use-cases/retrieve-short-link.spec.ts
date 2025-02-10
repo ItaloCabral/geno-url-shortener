@@ -1,9 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 
-import { InMemoryLinkRepository } from '../../repositories/in-memory/in-memory-link-repository'
+import { InMemoryLinkRepository } from '../../repositories/implementations/in-memory-link-repository'
 import { RetrieveShortLink } from '../../use-cases/retrieve-short-link'
 import { GenerateShortLink } from '../../use-cases/generate-short-link'
-import { Link } from '../../entities/link'
 
 describe('Retrieve short link', () => {
     const makeSut = () => {
@@ -29,9 +28,11 @@ describe('Retrieve short link', () => {
 
         const endpoint = generated.endpoint
 
-        expect(retrieveShortLink.execute({
+        const link = await retrieveShortLink.execute({
             endpoint
-        })).resolves.toEqual(generated.url)
+        })
+
+        expect(link).toBe(generated.url)
     })
 
     it('should return an error when the short link does not exist', async () => {
