@@ -1,5 +1,4 @@
 import { randomUUID } from "node:crypto";
-import {randomString} from "../utils/random-string-generate";
 
 /**
  * TODO: Implement expiration date for links
@@ -19,9 +18,9 @@ type LinkAttributes = {
 
 export class Link {
     
-    private attrs: LinkAttributes
+    private attrs: Partial<LinkAttributes>
 
-    constructor(attrs: LinkAttributes) {
+    constructor(attrs: Partial<LinkAttributes>) {
 
         if (!attrs.url) throw new Error('missing url');
 
