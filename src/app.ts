@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors'
 
-import { linkRoutes } from './routes/LinkRoutes';
 import { env } from './env';
+
+import { linkRoutes } from './routes/LinkRoutes';
+import { debugRoutes } from './routes/DebugRoutes';
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(cors({
 }))
 
 app.use('/', linkRoutes);
+
+app.use(debugRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
